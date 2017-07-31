@@ -33,6 +33,9 @@ public class Constance {
         super.onConfigurationChanged(newConfig);
         Constance.resetDensity(this);
     }
-    ```
+
+
+
+
 ##333
 xml中使用pt单位
