@@ -3,21 +3,34 @@
 
 # AutoScreen
 屏幕适配的简单另类方式
-
+/**
+ * -------------------------------------------------------------------------------------------------------
+ * 按屏幕宽度等比例适配】
+ * dp模式下按正常情况使用
+ * dp模式下系统空间某些drawable会受影响，显示偏差，如RatingBar 解决办法是设置maxheight=minheight=某个值
+ *
+ *---------------------------------------------------------------------------------------------------------
+ * pt模式
+ * 先生成pt xml
+ * 使用dp的地方用生成的dimens
+ * 使用麻烦，但不会影响系统控件，
+ * 适配：控件尽量使用match_parent wrap_content margin和padding 用pt格式
+ * --------------------------------------------------------------------------------------------------------
+ * 
+ *把设计稿的尺寸方向和density配置进来
+ * 在application中调用Adjustutil.adjust
+ */
+ 
+ 
 [思路来源于布隆简书]( http://www.jianshu.com/p/b6b9bd1fba4d)
 
-##111Constance中的设计尺寸改为你的设计稿的宽度
+##111AdjustUtil中的设计尺寸改为你的设计稿的宽度
 ```
-public class Constance {
-    //设计稿尺寸
-    public static final int DESIGN_WIDTH = 750;
-
-    public static void resetDensity(Activity context) {
-        Point size = new Point();
-        context.getWindowManager().getDefaultDisplay().getSize(size);
-        context.getResources().getDisplayMetrics().xdpi = size.x / DESIGN_WIDTH * 72f;
-    }
-}
+ private static Orention type = Orention.PORT;
+    private static Unit unit = Unit.PT;
+    private static int DESIGN_WIDTHs = 1080;
+    private static int DESIGN_HEIGHTs = 1920;
+    private static float DESIGN_SCALEs = 3.0f;
 ```
 
 ##222在baseActivity中设置
@@ -25,13 +38,7 @@ public class Constance {
   @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Constance.resetDensity(this);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Constance.resetDensity(this);
+        AdjustUtil.adjust(this);
     }
 
 
