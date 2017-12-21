@@ -54,7 +54,7 @@ public class AdjustUtil {
     private static Unit unit = Unit.PT;
     private static int DESIGN_WIDTHs = 1080;
     private static int DESIGN_HEIGHTs = 1920;
-    private static float DESIGN_SCALEs = 2.75f;
+    private static float DESIGN_SCALEs = 3.0f;
 
     private static Point point;
     public static float screenScale = 0;
@@ -76,6 +76,7 @@ public class AdjustUtil {
     /**
      * @param app
      * @param orention      方向
+     * @param units         单位
      * @param DESIGN_WIDTH  设计稿宽
      * @param DESIGN_HEIGHT 设计稿高
      * @param DESIGN_SCALE  设计设备密度
@@ -136,7 +137,7 @@ public class AdjustUtil {
                 metrics.scaledDensity = screenScale;
             }
         } else if (unit == Unit.PT) {
-            displayMetrics.xdpi = 72f * screenScale;
+            displayMetrics.xdpi = 72f *screenScale;
             displayMetrics.scaledDensity = screenScale;
             DisplayMetrics metrics = getMetricsOnMiui(resources);
             if (metrics != null) {
@@ -152,12 +153,13 @@ public class AdjustUtil {
      * @param context
      */
     private static void applyScale(final Application context) {
-
         context.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {
-                changeTypeValue(context);
-                changeTypeValue(activity);
+                if(!(activity instanceof AdjustNormal)) {
+                    changeTypeValue(context);
+                    changeTypeValue(activity);
+                }
             }
 
             @Override
@@ -247,6 +249,13 @@ public class AdjustUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * 不需要调整的activity 实现该接口
+     */
+    public interface AdjustNormal{
+
     }
 }
 
