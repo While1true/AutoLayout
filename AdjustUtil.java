@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.WindowManager;
 
 
@@ -20,7 +21,7 @@ import java.lang.reflect.Field;
 import static android.content.Context.WINDOW_SERVICE;
 
 /**
- * Created by vange on 2017/9/27.
+ * Created by 不听话的好孩子 on 2017/9/27.
  */
 
 /**
@@ -53,7 +54,7 @@ public class AdjustUtil {
     private static Unit unit = Unit.PT;
     private static int DESIGN_WIDTHs = 1080;
     private static int DESIGN_HEIGHTs = 1920;
-    private static float DESIGN_SCALEs = 3.0f;
+    private static float DESIGN_SCALEs = 2.75f;
 
     private static Point point;
     public static float screenScale = 0;
@@ -93,8 +94,8 @@ public class AdjustUtil {
         /**
          * 和设计尺寸一样不调整
          */
-        if (checkIfNotNeedAdjust(context))
-            return;
+//        if (checkIfNotNeedAdjust(context))
+//            return;
 
         /**
          * 计算缩放
@@ -119,8 +120,8 @@ public class AdjustUtil {
             /**
              * 和设计尺寸一样不调整
              */
-            if (checkIfNotNeedAdjust(context))
-                return;
+//            if (checkIfNotNeedAdjust(context))
+//                return;
             calculateScale();
         }
         Resources resources = context.getResources();
@@ -206,29 +207,29 @@ public class AdjustUtil {
     /**
      * 相同分辨率屏幕不调整
      *
-     * @param context
+     * @param
      * @return
      */
-    private static boolean checkIfNotNeedAdjust(Context context) {
-        point = new Point();
-        ((WindowManager) context.getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getSize(point);
-        boolean notAdjust = false;
-        if (type == Orention.PORT) {
-            notAdjust = (DESIGN_WIDTHs == Math.min(point.x, point.y));
-        } else if (type == Orention.LAND) {
-            notAdjust = (DESIGN_WIDTHs == Math.max(point.x, point.y));
-        } else {
-            if (point.x > point.y) {
-                notAdjust = (DESIGN_HEIGHTs == point.x);
-            } else {
-                notAdjust = (DESIGN_WIDTHs == point.x);
-            }
-        }
-
-        float density = context.getResources().getDisplayMetrics().density;
-
-        return notAdjust && density == DESIGN_SCALEs;
-    }
+//    private static boolean checkIfNotNeedAdjust(Context context) {
+//        point = new Point();
+//        ((WindowManager) context.getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getSize(point);
+//        boolean notAdjust = false;
+//        if (type == Orention.PORT) {
+//            notAdjust = (DESIGN_WIDTHs == Math.min(point.x, point.y));
+//        } else if (type == Orention.LAND) {
+//            notAdjust = (DESIGN_WIDTHs == Math.max(point.x, point.y));
+//        } else {
+//            if (point.x > point.y) {
+//                notAdjust = (DESIGN_HEIGHTs == point.x);
+//            } else {
+//                notAdjust = (DESIGN_WIDTHs == point.x);
+//            }
+//        }
+//
+//        float density = context.getResources().getDisplayMetrics().density;
+//
+//        return notAdjust && density == DESIGN_SCALEs;
+//    }
 
     //解决MIUI更改框架导致的MIUI7+Android5.1.1上出现的失效问题
     // (以及极少数基于这部分miui去掉art然后置入xposed的手机)
