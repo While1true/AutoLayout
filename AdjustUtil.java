@@ -29,16 +29,16 @@ import static android.content.Context.WINDOW_SERVICE;
  * 按屏幕宽度等比例适配】
  * dp模式下按正常情况使用
  * dp模式下系统空间某些drawable会受影响，显示偏差，如RatingBar 解决办法是设置maxheight=minheight=某个值
- *
- *---------------------------------------------------------------------------------------------------------
+ * <p>
+ * ---------------------------------------------------------------------------------------------------------
  * pt模式
  * 先生成pt xml
  * 使用dp的地方用生成的dimens
  * 使用麻烦，但不会影响系统控件，
  * 适配：控件尽量使用match_parent wrap_content margin和padding 用pt格式
  * --------------------------------------------------------------------------------------------------------
- * 
- *把设计稿的尺寸方向和density配置进来
+ * <p>
+ * 把设计稿的尺寸方向和density配置进来
  * 在application中调用Adjustutil.adjust
  */
 public class AdjustUtil {
@@ -100,7 +100,7 @@ public class AdjustUtil {
         /**
          * 计算缩放
          */
-        calculateScale();
+        calculateScale(context);
 
         /**
          * 设置缩放
@@ -122,7 +122,7 @@ public class AdjustUtil {
              */
 //            if (checkIfNotNeedAdjust(context))
 //                return;
-            calculateScale();
+            calculateScale(context);
         }
         Resources resources = context.getResources();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
@@ -195,7 +195,10 @@ public class AdjustUtil {
     /**
      * 计算scale
      */
-    private static void calculateScale() {
+    private static void calculateScale(Context context) {
+        if (point == null)
+            point = new Point();
+        ((WindowManager) context.getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getSize(point);
         if (point.x > point.y) {
             screenScale = DESIGN_SCALEs * point.x / Math.max(DESIGN_WIDTHs, DESIGN_HEIGHTs);
         } else {
