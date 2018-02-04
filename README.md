@@ -33,11 +33,11 @@
     private static float DESIGN_SCALEs = 3.0f;
 ```
 
-##222在baseActivity中设置
+##222在Application中设置
 ```
   @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate() {
+        super.onCreate();
         AdjustUtil.adjust(this);
     }
 
