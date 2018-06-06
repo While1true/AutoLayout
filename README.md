@@ -18,8 +18,11 @@ AutoScreenUtils.AdjustDensity(this,dp);
 
 ## 原理
 > 系统的尺寸计算 是通过 Typevalue.applyDimension
+
 > 可看出 尺寸和metrics.density有关
+
 > 而DisplayMetrics的density scaledDensity等这些变量都是public static的
+
 > 我们可以通过修改这个值来适配
  ```
  public static float applyDimension(int unit, float value,
@@ -44,7 +47,9 @@ AutoScreenUtils.AdjustDensity(this,dp);
  ```
  
  > 每个activity，Application的ResourcesImpl都是新建对象，内部对mMetrics.setToDefaults();
+ 
  > 这说明每个DisplayMetrics的值在activty实例创建的时候又重新初始化了
+ 
  > 我们只要在每个Activityoncreat中给它设置好需要的值就好了
  ```
   @Override
