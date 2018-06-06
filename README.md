@@ -2,7 +2,12 @@
 
 # AutoScreen
 屏幕适配的简单另类方式
+
+效果 
+
+
 [思路来源于布隆简书]( http://www.jianshu.com/p/b6b9bd1fba4d)
+
 [玩Android文章](https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA)
 
 ## 使用
@@ -36,7 +41,7 @@
  ```
  
  > 每个activity，Application的ResourcesImpl都是新建对象，内部对mMetrics.setToDefaults();
- >这说明每个DisplayMetrics的值在activty实例创建的时候又重新初始化了
+ > 这说明每个DisplayMetrics的值在activty实例创建的时候又重新初始化了
  > 我们只要在每个Activityoncreat中给它设置好需要的值就好了
  ```
   @Override
