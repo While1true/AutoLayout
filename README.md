@@ -17,7 +17,7 @@ AutoScreenUtils.AdjustDensity(this,dp);
 ```
 
 ## 原理
-> 系统的尺寸计算 是通过 Typevalue.applyDimension
+> 系统的尺寸计算 布局是通过 Typevalue.applyDimension 图片是displayMetrics.densityDpi
 
 > 可看出 尺寸和metrics.density有关
 
