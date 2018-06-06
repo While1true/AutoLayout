@@ -11,7 +11,10 @@
 [玩Android文章](https://mp.weixin.qq.com/s/d9QCoBP6kV9VSWvVldVVwA)
 
 ## 使用
-> 在application的oncreat中调用  AutoScreenUtils.AdjustDensity(this,dp);即可 第二个参数是您设计图稿的宽度dp
+> 在application的oncreat中调用即可 第二个参数是您设计图稿的宽度dp
+```
+AutoScreenUtils.AdjustDensity(this,dp);
+```
 
 ## 原理
 > 系统的尺寸计算 是通过 Typevalue.applyDimension
