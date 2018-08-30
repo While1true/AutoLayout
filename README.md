@@ -96,30 +96,16 @@ import android.util.TypedValue;
  */
 
 public class AutoScreenUtils {
-    private static float originalScaledDensity;
+
 
     public static void AdjustDensity(final Application application, final int dpWidth) {
-        final DisplayMetrics displayMetrics = application.getResources().getDisplayMetrics();
-        final float originalDensity = displayMetrics.density;
-        originalScaledDensity = displayMetrics.scaledDensity;
-        application.registerComponentCallbacks(new ComponentCallbacks() {
-            @Override
-            public void onConfigurationChanged(Configuration newConfig) {
-                if (newConfig != null && newConfig.fontScale > 0) {
-                    originalScaledDensity = application.getResources().getDisplayMetrics().scaledDensity;
-                }
-            }
-
-            @Override
-            public void onLowMemory() {
-
-            }
-        });
+         final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
+         final DisplayMetrics displayMetrics = application.getResources().getDisplayMetrics();
         application.registerActivityLifecycleCallbacks(new CreatLifecycle() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 float targetDensity = (float)displayMetrics.widthPixels / dpWidth;
-                float targetScaledDensity = targetDensity * (originalScaledDensity / originalDensity);
+                float targetScaledDensity = targetDensity * (systemDm.scaledDensity / systemDm.density);
                 int targetDensityDpi = (int) (160 * targetDensity);
                 displayMetrics.density = targetDensity;
                 displayMetrics.scaledDensity = targetScaledDensity;
