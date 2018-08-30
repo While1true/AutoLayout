@@ -14,12 +14,15 @@ import android.util.DisplayMetrics;
 
 public class AutoScreenUtils {
 
-    public static void AdjustDensity(final Application application, final int dpWidth) {
+    public static void AdjustDensity(final Application application, final int dpWidth,final boolean ignoreOtherPackage) {
         final DisplayMetrics displayMetrics = application.getResources().getDisplayMetrics();
         final DisplayMetrics sysDisplayMetrics = Resources.getSystem().getDisplayMetrics();
         application.registerActivityLifecycleCallbacks(new CreatLifecycle() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                if(ignoreOtherPackage&&!activity.getClass().getName().contains(activity.getPackageName())){
+                    return;
+                }
                 int width=dpWidth;
                 if(activity instanceof IFixedScreen){
                     int fixedDP = ((IFixedScreen) activity).fixedDP();
@@ -45,7 +48,7 @@ public class AutoScreenUtils {
 
     }
     public static void AdjustDensity(final Application application) {
-       AdjustDensity(application,360);
+       AdjustDensity(application,360,false);
     }
 
     private static abstract class CreatLifecycle implements Application.ActivityLifecycleCallbacks {
