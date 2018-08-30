@@ -3,6 +3,7 @@ package com.sfwl.sfplugstockmanager;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentCallbacks;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ public class AutoScreenUtils {
         application.registerActivityLifecycleCallbacks(new CreatLifecycle() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                if(ignoreOtherPackage&&!activity.getClass().getName().contains(activity.getPackageName())){
+                if(ignoreOtherPackage&&!activity.getClass().getName().contains(application.getApplicationInfo().packageName)){
                     return;
                 }
                 int width=dpWidth;
